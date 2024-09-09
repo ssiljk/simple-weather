@@ -1,0 +1,46 @@
+<script setup>
+import { ref } from 'vue';
+import { CRow, CCol } from '@coreui/vue'
+import Card from './Card.vue';
+import axios from 'axios';
+import { reactive, onMounted } from 'vue';
+import '@coreui/coreui/dist/css/coreui.min.css'
+const props = defineProps({
+    city: String
+})
+console.log("props.city:", props.city);
+
+const state = reactive({
+    response: Object,
+    isLoading: true,
+});
+
+onMounted(async () => {
+    try {
+        const responseString = await axios.get("http://api.openweathermap.org/data/2.5/forecast?id="+props.city+"&appid=ab9f7ca8b3c79eb846a5cc344487cb06&cnt=5&units=metric");
+     
+        state.response = responseString.data;
+
+        for (var i = 0; i < state.response.list.length; i++) {  
+           state.response.list[i].weather[0].icon = "https://openweathermap.org/img/wn/" + state.response.list[i].weather[0].icon + "@2x.png";          
+        }
+
+    } catch (error) {
+        console.error('Error fetching data', error);
+    } finally {
+        state.isLoading = false;
+    }
+});
+
+</script>
+
+ <template>
+    <CRow>
+        <CCol >
+            <Card v-for="point in state.response.list" :temp="point.main.temp" :humidity="point.main.humidity"
+                :icon="point.weather[0].icon" :hour="point.dt_txt"></Card>
+        </CCol>
+    </CRow>
+</template> 
+
+
