@@ -35,12 +35,12 @@ onMounted(async () => {
 </script>
 
  <template>
-    <CRow>
-        <CCol >
+   
+        <tr>
             <Card v-for="point in state.response.list" :temp="point.main.temp" :humidity="point.main.humidity"
                 :icon="point.weather[0].icon" :hour="point.dt_txt"></Card>
-        </CCol>
-    </CRow>
+        </tr>
+   
 </template> 
 
 
