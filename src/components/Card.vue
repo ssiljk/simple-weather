@@ -13,12 +13,14 @@ const props = defineProps({
 </script>
 
 <template>  
-<CCard style="width: 25%">
-  <CCardBody>
-    <CCardTitle>{{ props.temp }} °C</CCardTitle>
-    <CCardText>{{ props.humidity }} %</CCardText>
-    <CCardImage orientation="bottom" :src="icon" />
-    <CCardText>{{ props.hour }}</CCardText>
-  </CCardBody>
-</CCard>
+<td>
+  <CCard style="width: fit-content">
+    <CCardBody>
+      <CCardTitle>{{ props.temp }} °C</CCardTitle>
+      <CCardText>{{ props.humidity }} %</CCardText>
+      <CCardImage orientation="bottom" :src="icon" />
+      <CCardText>{{ props.hour }}</CCardText>
+    </CCardBody>
+  </CCard>
+</td>
 </template>
