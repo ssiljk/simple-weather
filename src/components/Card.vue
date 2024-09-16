@@ -7,7 +7,7 @@ const props = defineProps({
     temp: Number,
     humidity: Number,
     icon: String,
-    hour: Number
+    hour: String
 })
 
 </script>

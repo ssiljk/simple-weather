@@ -34,9 +34,18 @@ onMounted(async () => {
     }
 });
 
-function formatDate(unix_timestamp) {
-    var hours = new Date(unix_timestamp * 1000).getHours();
-    return hours;
+function formatDate(unix_timestamp, offset) {
+    console.log("offset:", offset);
+    console.log("unix_timestamp:", unix_timestamp);
+    var hours = new Date(unix_timestamp * 1000 + offset * 3600 * 1000).getHours(); 
+    console.log("hours:", hours);
+    if(hours < 12) {
+        return hours + " AM";
+    }  
+    else {
+        return hours - 12 + " PM";  
+
+    }
 }
 
 </script>
@@ -45,7 +54,7 @@ function formatDate(unix_timestamp) {
    
         <tr>
             <Card v-for="point in state.response.list" :temp="point.main.temp" :humidity="point.main.humidity"
-                :icon="point.weather[0].icon" :hour="formatDate(point.dt)"></Card>
+                :icon="point.weather[0].icon" :hour="formatDate(point.dt,props.city.utcOffset)"></Card>
         </tr>
    
 </template> 
